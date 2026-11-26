@@ -1,0 +1,689 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#07090e" />
+  <meta name="background-color" content="#07090e" />
+  <meta name="description" content="ECHO // ANOMALY — Neural Calibration Protocol. A cyberpunk cognitive puzzle game testing Working Memory, Impulse Inhibition, and Pattern Synthesis." />
+
+  <!-- iOS / iPadOS Standalone Home Screen App Metadata -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ECHO // ANOMALY" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <title>ECHO // ANOMALY — Neural Calibration Protocol</title>
+  <!-- Tailwind CSS for responsive utility layout -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk & JetBrains Mono for sleek neural interface typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-obsidian: #07090e;
+      --bg-panel: #11121a;
+      --bg-elevated: #181a26;
+      --neon-cyan: #00f3ff;
+      --glitch-magenta: #ff0055;
+      --phosphor-green: #00ff88;
+      --amber-warn: #ffb800;
+      --text-main: #e2e8f0;
+      --text-dim: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-obsidian);
+      color: var(--text-main);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow: hidden;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: auto;
+    }
+
+    /* Native Mobile Safe-Area Insets (iPhone Notch / Dynamic Island / Home Bar) */
+    .safe-app-shell {
+      padding-top: max(0.5rem, env(safe-area-inset-top));
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+      padding-left: max(0.75rem, env(safe-area-inset-left));
+      padding-right: max(0.75rem, env(safe-area-inset-right));
+    }
+
+    @media (min-width: 640px) {
+      .safe-app-shell {
+        padding-top: max(1rem, env(safe-area-inset-top));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        padding-left: max(1.5rem, env(safe-area-inset-left));
+        padding-right: max(1.5rem, env(safe-area-inset-right));
+      }
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+/* ... existing code ... */
+    /* Custom Scrollbar for Modal if needed on very small screens */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #07090e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="neural-bg flex flex-col justify-between h-screen w-screen overflow-hidden relative">
+  <!-- CRT Scanline Overlay -->
+  <div class="crt-overlay"></div>
+
+  <!-- Main App Shell -->
+  <div id="app-shell" class="safe-app-shell relative z-10 flex flex-col h-full w-full max-w-5xl mx-auto justify-between">
+
+    <!-- Top Telemetry HUD Bar -->
+    <header class="flex items-center justify-between gap-2 bg-[#11121a]/90 border border-cyan-500/25 rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 backdrop-blur-md">
+<!-- ... existing code ... -->
+      <!-- 0. BOOT / TITLE SCREEN -->
+      <section id="screen-start" class="w-full max-w-xl bg-[#11121a]/90 border border-cyan-500/30 rounded-2xl p-5 sm:p-8 text-center backdrop-blur-md pulse-border flex flex-col items-center justify-center gap-4 sm:gap-5">
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 font-mono-tech text-[11px] text-[#00f3ff] tracking-widest">
+            <span>NEURAL REALITY DIAGNOSTIC v4.2</span>
+          </div>
+          <div id="app-mode-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/90 border border-slate-700 font-mono-tech text-[10px] text-slate-400 tracking-wider">
+            <span id="app-mode-dot" class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span id="app-mode-text">WEB MODE</span>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-tight text-white">
+            ECHO <span class="text-[#00f3ff] text-glow-cyan">//</span> <span class="text-[#ff0055] text-glow-magenta">ANOMALY</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+            Subtle fractures are propagating across the simulated lattice. Stabilize your perception across three escalating cognitive protocols: <span class="text-slate-200">Working Memory</span>, <span class="text-slate-200">Impulse Inhibition</span>, and <span class="text-slate-200">Pattern Synthesis</span>.
+          </p>
+        </div>
+
+        <!-- Stage Preview Pills -->
+        <div class="grid grid-cols-3 gap-2 w-full text-left font-mono-tech text-[10px] sm:text-xs">
+          <div class="bg-[#181a26] border border-slate-800 rounded-xl p-2.5">
+            <div class="text-[#00f3ff] font-bold">01 // ECHO</div>
+            <div class="text-slate-400 mt-0.5">Filter magenta decoy interference</div>
+          </div>
+          <div class="bg-[#181a26] border border-slate-800 rounded-xl p-2.5">
+            <div class="text-[#ff0055] font-bold">02 // STROOP</div>
+            <div class="text-slate-400 mt-0.5">Override semantic reflex conflicts</div>
+          </div>
+          <div class="bg-[#181a26] border border-slate-800 rounded-xl p-2.5">
+            <div class="text-[#00ff88] font-bold">03 // MATRIX</div>
+            <div class="text-slate-400 mt-0.5">Isolate Déjà Vu logic anomalies</div>
+          </div>
+        </div>
+
+        <!-- Primary Action & Install App Controls -->
+        <div class="flex flex-col gap-2.5 w-full pt-1">
+          <button id="btn-start-standard" class="w-full py-3.5 px-6 rounded-xl bg-[#00f3ff] hover:bg-[#33f6ff] text-[#07090e] font-bold tracking-wider text-sm sm:text-base transition-all transform hover:scale-[1.01] active:scale-[0.98] glow-cyan cursor-pointer">
+            INITIATE NEURAL SYNC
+          </button>
+
+          <div class="grid grid-cols-2 gap-2.5 w-full">
+            <button id="btn-install-app" class="py-3 px-4 rounded-xl bg-[#181a26] hover:bg-slate-800 border border-[#00ff88]/50 text-[#00ff88] font-mono-tech text-xs sm:text-sm font-bold tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer glow-green">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/>
+              </svg>
+              <span>[ INSTALL APP ]</span>
+            </button>
+            <button id="btn-open-guide-start" class="py-3 px-4 rounded-xl bg-[#181a26] hover:bg-slate-800 border border-slate-700 text-slate-200 font-mono-tech text-xs sm:text-sm transition-colors cursor-pointer">
+              PROTOCOL GUIDE
+            </button>
+          </div>
+        </div>
+      </section>
+<!-- ... existing code ... -->
+      <button id="btn-guide-ack" class="w-full py-2.5 rounded-xl bg-[#00f3ff] text-[#07090e] font-bold text-xs tracking-wider uppercase cursor-pointer">
+        ACKNOWLEDGE PROTOCOL
+      </button>
+    </div>
+  </div>
+
+  <!-- CROSS-PLATFORM INSTALL APP MODAL (iOS SAFARI + ANDROID CHROME) -->
+  <div id="modal-install" class="hidden fixed inset-0 z-40 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-[#11121a] border border-[#00ff88]/45 rounded-2xl max-w-lg w-full p-5 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <img id="install-preview-icon" alt="App Icon" class="w-10 h-10 rounded-xl border border-cyan-500/40 bg-[#07090e]" />
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-white tracking-wide leading-tight">
+              INSTALL <span class="text-[#00ff88]">ECHO // ANOMALY</span>
+            </h3>
+            <p class="font-mono-tech text-[10px] text-slate-400">STANDALONE FULLSCREEN & OFFLINE APP</p>
+          </div>
+        </div>
+        <button id="btn-close-install" class="text-slate-400 hover:text-white font-mono-tech text-xs px-2.5 py-1.5 rounded-lg bg-slate-800/80 cursor-pointer">
+          ESC
+        </button>
+      </div>
+
+      <!-- Native Direct Install Prompt Banner (Shown if Android/Chrome beforeinstallprompt is captured) -->
+      <div id="native-install-box" class="hidden bg-[#00ff88]/10 border border-[#00ff88]/40 rounded-xl p-3.5 space-y-2.5">
+        <div class="font-mono-tech text-xs text-[#00ff88] font-bold">
+          NATIVE PWA INSTALL READY
+        </div>
+        <p class="text-xs text-slate-300">
+          Your browser supports one-tap installation directly to your home screen with offline neural caching.
+        </p>
+        <button id="btn-trigger-native-install" class="w-full py-2.5 px-4 rounded-xl bg-[#00ff88] hover:bg-[#33ff9f] text-[#07090e] font-bold text-xs tracking-wider uppercase cursor-pointer">
+          INSTALL DIRECTLY NOW
+        </button>
+      </div>
+
+      <!-- Platform-Specific Instructions -->
+      <div class="space-y-3 text-xs sm:text-sm text-slate-300">
+        <!-- iPhone / iPad Instructions -->
+        <div id="install-card-ios" class="bg-[#181a26] p-3.5 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-[#00f3ff] font-bold">iPHONE / iPAD (SAFARI)</span>
+            <span id="badge-detected-ios" class="hidden font-mono-tech text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-[#00f3ff]">YOUR DEVICE</span>
+          </div>
+          <ol class="list-decimal list-inside text-slate-300 space-y-1 text-xs leading-relaxed">
+            <li>Open this page in <strong>Apple Safari</strong>.</li>
+            <li>Tap the <strong class="text-white">Share</strong> button (<span class="font-mono-tech text-[#00f3ff]">[↑]</span> at the bottom or top toolbar).</li>
+            <li>Scroll down and tap <strong class="text-white">"Add to Home Screen"</strong>.</li>
+            <li>Tap <strong class="text-[#00ff88]">"Add"</strong> in the top-right corner to launch fullscreen without browser bars.</li>
+          </ol>
+        </div>
+
+        <!-- Android Instructions -->
+        <div id="install-card-android" class="bg-[#181a26] p-3.5 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-mono-tech text-xs text-[#00ff88] font-bold">ANDROID (CHROME / EDGE)</span>
+            <span id="badge-detected-android" class="hidden font-mono-tech text-[10px] px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88]">YOUR DEVICE</span>
+          </div>
+          <ol class="list-decimal list-inside text-slate-300 space-y-1 text-xs leading-relaxed">
+            <li>Tap the <strong class="text-white">Menu</strong> icon (<span class="font-mono-tech text-[#00ff88]">⋮</span>) in the top-right corner of Chrome.</li>
+            <li>Select <strong class="text-white">"Install app"</strong> or <strong class="text-white">"Add to Home screen"</strong>.</li>
+            <li>Confirm <strong class="text-[#00ff88]">"Install"</strong> to create a standalone home screen icon.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Utility Actions: Copy Link or Download Standalone File -->
+      <div class="grid grid-cols-2 gap-2.5 pt-1">
+        <button id="btn-copy-app-url" class="py-2.5 px-3 rounded-xl bg-[#181a26] hover:bg-slate-800 border border-slate-700 text-slate-200 font-mono-tech text-[11px] transition-colors cursor-pointer">
+          COPY APP LINK
+        </button>
+        <button id="btn-download-html" class="py-2.5 px-3 rounded-xl bg-[#181a26] hover:bg-slate-800 border border-cyan-500/40 text-[#00f3ff] font-mono-tech text-[11px] transition-colors cursor-pointer">
+          SAVE OFFLINE .HTML
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * ============================================================================
+     * 0. CROSS-PLATFORM PWA ENGINE (ICONS, MANIFEST, SERVICE WORKER, HAPTICS)
+     * ============================================================================
+     */
+    const PWAEngine = {
+      deferredPrompt: null,
+      iconDataUrl192: '',
+      iconDataUrl512: '',
+
+      // Procedurally generate crisp high-DPI cyberpunk app icon via offscreen Canvas
+      generateIconDataUrl(size) {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const cx = size / 2;
+        const cy = size / 2;
+
+        // Deep Obsidian Background
+        ctx.fillStyle = '#07090e';
+        ctx.fillRect(0, 0, size, size);
+
+        // Subtle Radial Neon Aura
+        const bgGrad = ctx.createRadialGradient(cx, cy, size * 0.05, cx, cy, size * 0.5);
+        bgGrad.addColorStop(0, 'rgba(0, 243, 255, 0.24)');
+        bgGrad.addColorStop(0.6, 'rgba(255, 0, 85, 0.10)');
+        bgGrad.addColorStop(1, 'rgba(7, 9, 14, 0)');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, size, size);
+
+        // Subtle Grid Lines
+        ctx.strokeStyle = 'rgba(0, 243, 255, 0.08)';
+        ctx.lineWidth = Math.max(1, size * 0.004);
+        const step = size / 8;
+        for (let i = step; i < size; i += step) {
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i, size);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, i);
+          ctx.lineTo(size, i);
+          ctx.stroke();
+        }
+
+        // Outer Cyan Ring
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.35, 0, Math.PI * 2);
+        ctx.strokeStyle = '#00f3ff';
+        ctx.lineWidth = size * 0.024;
+        ctx.shadowColor = '#00f3ff';
+        ctx.shadowBlur = size * 0.05;
+        ctx.stroke();
+        ctx.restore();
+
+        // Offset Magenta Glitch Arc
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(cx + size * 0.015, cy - size * 0.012, size * 0.28, -0.35 * Math.PI, 0.75 * Math.PI);
+        ctx.strokeStyle = '#ff0055';
+        ctx.lineWidth = size * 0.02;
+        ctx.shadowColor = '#ff0055';
+        ctx.shadowBlur = size * 0.045;
+        ctx.stroke();
+        ctx.restore();
+
+        // Central Geometric Diamond / Neural Eye
+        ctx.save();
+        ctx.beginPath();
+        const r = size * 0.17;
+        ctx.moveTo(cx, cy - r);
+        ctx.lineTo(cx + r * 1.25, cy);
+        ctx.lineTo(cx, cy + r);
+        ctx.lineTo(cx - r * 1.25, cy);
+        ctx.closePath();
+        ctx.strokeStyle = '#00ff88';
+        ctx.lineWidth = size * 0.022;
+        ctx.shadowColor = '#00ff88';
+        ctx.shadowBlur = size * 0.04;
+        ctx.stroke();
+
+        // Inner Pupil Core
+        ctx.beginPath();
+        ctx.arc(cx, cy, size * 0.052, 0, Math.PI * 2);
+        ctx.fillStyle = '#00f3ff';
+        ctx.fill();
+        ctx.restore();
+
+        return canvas.toDataURL('image/png');
+      },
+
+      injectIconsAndManifest() {
+        try {
+          this.iconDataUrl192 = this.generateIconDataUrl(192);
+          this.iconDataUrl512 = this.generateIconDataUrl(512);
+
+          // Inject Standard Favicon & Apple Touch Icon for iOS Safari Home Screen
+          const appleIcon = document.createElement('link');
+          appleIcon.rel = 'apple-touch-icon';
+          appleIcon.sizes = '512x512';
+          appleIcon.href = this.iconDataUrl512;
+          document.head.appendChild(appleIcon);
+
+          const favIcon = document.createElement('link');
+          favIcon.rel = 'icon';
+          favIcon.type = 'image/png';
+          favIcon.sizes = '192x192';
+          favIcon.href = this.iconDataUrl192;
+          document.head.appendChild(favIcon);
+
+          const previewImg = document.getElementById('install-preview-icon');
+          if (previewImg) previewImg.src = this.iconDataUrl192;
+
+          // Build Complete Web App Manifest dynamically
+          const startUrl = (window.location.protocol === 'http:' || window.location.protocol === 'https:')
+            ? window.location.href
+            : './';
+
+          const manifest = {
+            name: 'ECHO // ANOMALY — Neural Calibration Protocol',
+            short_name: 'ECHO//ANOMALY',
+            description: 'Cyberpunk cognitive puzzle engine testing Working Memory, Impulse Inhibition, and Pattern Synthesis.',
+            start_url: startUrl,
+            display: 'standalone',
+            orientation: 'portrait',
+            background_color: '#07090e',
+            theme_color: '#07090e',
+            categories: ['games', 'education', 'entertainment'],
+            icons: [
+              {
+                src: this.iconDataUrl192,
+                sizes: '192x192',
+                type: 'image/png',
+                purpose: 'any maskable'
+              },
+              {
+                src: this.iconDataUrl512,
+                sizes: '512x512',
+                type: 'image/png',
+                purpose: 'any maskable'
+              }
+            ]
+          };
+
+          const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+          const manifestUrl = URL.createObjectURL(manifestBlob);
+          const manifestLink = document.createElement('link');
+          manifestLink.rel = 'manifest';
+          manifestLink.href = manifestUrl;
+          document.head.appendChild(manifestLink);
+        } catch (err) {
+          // Graceful fallback in restricted environments
+        }
+      },
+
+      registerOfflineServiceWorker() {
+        // Service Workers require http/https (or localhost) and secure context
+        if (!('serviceWorker' in navigator)) return;
+        const isHttp = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (!isHttp) return;
+
+        try {
+          const swCode = `
+            const CACHE_NAME = 'echo-anomaly-v1';
+            self.addEventListener('install', (event) => {
+              self.skipWaiting();
+              event.waitUntil(
+                caches.open(CACHE_NAME).then((cache) => {
+                  return cache.addAll([self.registration.scope]).catch(() => {});
+                })
+              );
+            });
+            self.addEventListener('activate', (event) => {
+              event.waitUntil(self.clients.claim());
+            });
+            self.addEventListener('fetch', (event) => {
+              if (event.request.method !== 'GET') return;
+              event.respondWith(
+                caches.match(event.request).then((cached) => {
+                  const networkFetch = fetch(event.request).then((response) => {
+                    if (response && response.status === 200 && response.type === 'basic') {
+                      const clone = response.clone();
+                      caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+                    }
+                    return response;
+                  }).catch(() => cached);
+                  return cached || networkFetch;
+                })
+              );
+            });
+          `;
+          const swBlob = new Blob([swCode], { type: 'application/javascript' });
+          const swUrl = URL.createObjectURL(swBlob);
+          navigator.serviceWorker.register(swUrl).catch(() => {
+            // Silently ignore if sandboxed origin disallows blob SW registration
+          });
+        } catch (e) {
+          // Safe fallback
+        }
+      },
+
+      detectPlatformAndMode() {
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        const badgeText = document.getElementById('app-mode-text');
+        const badgeDot = document.getElementById('app-mode-dot');
+        const installBtn = document.getElementById('btn-install-app');
+
+        if (isStandalone) {
+          if (badgeText) badgeText.textContent = 'STANDALONE APP MODE';
+          if (badgeDot) badgeDot.className = 'w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse';
+          if (installBtn) {
+            installBtn.innerHTML = '<span>✓ INSTALLED APP</span>';
+            installBtn.classList.remove('glow-green');
+          }
+        }
+
+        // Highlight user's detected mobile OS inside the Install Guide Modal
+        const ua = navigator.userAgent || '';
+        const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isAndroid = /Android/i.test(ua);
+
+        if (isIOS) {
+          document.getElementById('badge-detected-ios')?.classList.remove('hidden');
+          document.getElementById('install-card-ios')?.classList.add('border-[#00f3ff]/60');
+        } else if (isAndroid) {
+          document.getElementById('badge-detected-android')?.classList.remove('hidden');
+          document.getElementById('install-card-android')?.classList.add('border-[#00ff88]/60');
+        }
+      },
+
+      vibrate(pattern) {
+        if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+          try {
+            navigator.vibrate(pattern);
+          } catch (e) {
+            // Ignore on unsupported browsers
+          }
+        }
+      },
+
+      init() {
+        this.injectIconsAndManifest();
+        this.registerOfflineServiceWorker();
+        this.detectPlatformAndMode();
+
+        // Capture Android / Desktop Chrome native install prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this.deferredPrompt = e;
+          document.getElementById('native-install-box')?.classList.remove('hidden');
+        });
+
+        window.addEventListener('appinstalled', () => {
+          this.deferredPrompt = null;
+          document.getElementById('native-install-box')?.classList.add('hidden');
+          this.detectPlatformAndMode();
+          setToast('ECHO // ANOMALY INSTALLED TO DEVICE', 'text-[#00ff88]');
+        });
+      }
+    };
+
+    /**
+     * ============================================================================
+     * ECHO // ANOMALY — NEURAL COGNITIVE SIMULATION ENGINE
+     * Architecture:
+     *  1. SoundEngine: Web Audio API procedural synthesizer (chords, blips, glitches)
+     *  2. TelemetryTracker: Tracks reaction times (ms), accuracy, and per-domain scores
+     *  3. StageControllers:
+     *      - Stage 1: Echo Sequence (Working Memory + Distractor Filtering + Inversion)
+     *      - Stage 2: Stroop Override (Cognitive Inhibition + Negation Rules)
+     *      - Stage 3: Anomaly Deduction (SVG Procedural Matrix + Rule Outlier / Completion)
+     *  4. RadarRenderer: Responsive HTML5 Canvas 4-axis cognitive profile visualizer
+     * ============================================================================
+     */
+
+    // ----------------------------------------------------------------------------
+    // 1. WEB AUDIO API PROCEDURAL SYNTHESIZER
+    // ----------------------------------------------------------------------------
+    class SoundEngine {
+/* ... existing code ... */
+    function recordSuccess(domain, rtMs, basePoints = 150) {
+      sound.playSuccess();
+      PWAEngine.vibrate(15);
+      GameState.totalAttempts++;
+      GameState.correctAttempts++;
+      GameState.domainStats[domain].total++;
+      GameState.domainStats[domain].correct++;
+
+      const clampedRt = Math.max(120, Math.min(rtMs, 10000));
+      GameState.reactionTimes.push(clampedRt);
+
+      // Speed bonus up to +100 pts
+      const speedBonus = Math.max(0, Math.round((2500 - Math.min(clampedRt, 2500)) / 25));
+      const earned = Math.round((basePoints + speedBonus) * GameState.streak);
+      GameState.score += earned;
+      GameState.streak = Math.min(5.0, +(GameState.streak + 0.2).toFixed(1));
+
+      updateHUD(clampedRt);
+      setToast(`SYNC VERIFIED +${earned} PTS (${Math.round(clampedRt)}ms)`, 'text-[#00ff88]');
+    }
+
+    function recordMistake(domain, reason = 'NEURAL INTERFERENCE DETECTED') {
+      sound.playError();
+      PWAEngine.vibrate([45, 30, 45]);
+      GameState.totalAttempts++;
+      GameState.domainStats[domain].total++;
+      GameState.streak = 1.0;
+      GameState.integrity = Math.max(0, GameState.integrity - 1);
+
+      // Trigger Glitch Shake Animation
+      DOM.shell.classList.remove('animate-glitch');
+      void DOM.shell.offsetWidth; // Force reflow
+      DOM.shell.classList.add('animate-glitch');
+
+      updateHUD();
+      setToast(`ANOMALY BREACH: ${reason}`, 'text-[#ff0055]');
+
+      if (GameState.integrity <= 0) {
+        clearAllTimers();
+        setTimeout(() => endSimulation(false), 550);
+        return true; // Game Over triggered
+      }
+      return false;
+    }
+/* ... existing code ... */
+      if (index === expectedCell) {
+        // Correct node hit
+        const now = performance.now();
+        const rt = now - s1.stepStartTime;
+        s1.stepStartTime = now;
+
+        PWAEngine.vibrate(12);
+        clickedEl.classList.add('active-green');
+        sound.playNode(index, false);
+        setTimeout(() => clickedEl.classList.remove('active-green'), 180);
+/* ... existing code ... */
+    document.getElementById('btn-guide').addEventListener('click', openGuide);
+    document.getElementById('btn-open-guide-start').addEventListener('click', openGuide);
+    document.getElementById('btn-close-guide').addEventListener('click', closeGuide);
+    document.getElementById('btn-guide-ack').addEventListener('click', closeGuide);
+
+    // Install App Modal & Native Prompt Controls
+    const modalInstall = document.getElementById('modal-install');
+    const openInstallModal = async () => {
+      sound.playClick();
+      PWAEngine.vibrate(15);
+      // If Android/Chrome native prompt is ready, trigger it directly; otherwise open step-by-step modal
+      if (PWAEngine.deferredPrompt) {
+        try {
+          PWAEngine.deferredPrompt.prompt();
+          const choiceResult = await PWAEngine.deferredPrompt.userChoice;
+          if (choiceResult && choiceResult.outcome === 'accepted') {
+            PWAEngine.deferredPrompt = null;
+            return;
+          }
+        } catch (err) {
+          // Fall through to modal guide
+        }
+      }
+      modalInstall.classList.remove('hidden');
+    };
+    const closeInstallModal = () => {
+      sound.playClick();
+      modalInstall.classList.add('hidden');
+    };
+
+    document.getElementById('btn-install-app').addEventListener('click', openInstallModal);
+    document.getElementById('btn-close-install').addEventListener('click', closeInstallModal);
+    document.getElementById('btn-trigger-native-install').addEventListener('click', async () => {
+      if (!PWAEngine.deferredPrompt) return;
+      PWAEngine.deferredPrompt.prompt();
+      const res = await PWAEngine.deferredPrompt.userChoice;
+      if (res && res.outcome === 'accepted') {
+        PWAEngine.deferredPrompt = null;
+        closeInstallModal();
+      }
+    });
+
+    // Copy App URL inside Install Modal
+    document.getElementById('btn-copy-app-url').addEventListener('click', () => {
+      const textarea = document.createElement('textarea');
+      textarea.value = window.location.href;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        sound.playSuccess();
+        setToast('APP LINK COPIED — OPEN IN SAFARI OR CHROME TO INSTALL', 'text-[#00ff88]');
+      } catch (e) {
+        setToast('UNABLE TO COPY URL', 'text-[#ff0055]');
+      }
+      document.body.removeChild(textarea);
+    });
+
+    // Download Standalone Offline HTML File
+    document.getElementById('btn-download-html').addEventListener('click', () => {
+      try {
+        sound.playClick();
+        const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'echo_anomaly.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        setToast('OFFLINE APP FILE DOWNLOADED (echo_anomaly.html)', 'text-[#00f3ff]');
+      } catch (e) {
+        setToast('DOWNLOAD BLOCKED BY SANDBOX', 'text-[#ff0055]');
+      }
+    });
+
+    // Clipboard Copy Telemetry (Using fallback-safe execCommand for iFrame compatibility)
+/* ... existing code ... */
+    // Global Keyboard Controls
+    window.addEventListener('keydown', (e) => {
+      const key = e.key.toLowerCase();
+
+      if (key === 'escape') {
+        if (!DOM.modalGuide.classList.contains('hidden')) {
+          closeGuide();
+          return;
+        }
+        if (!modalInstall.classList.contains('hidden')) {
+          closeInstallModal();
+          return;
+        }
+      }
+
+      if (!DOM.modalGuide.classList.contains('hidden') || !modalInstall.classList.contains('hidden')) return;
+
+      // Stage 1: 4x4 Grid shortcuts (1234 / QWER / ASDF / ZXCV)
+/* ... existing code ... */
+    // Initialize DOM structures & PWA capabilities on load
+    window.onload = function () {
+      PWAEngine.init();
+      buildEchoGrid();
+      showScreen('start');
+    };
+  </script>
+</body>
+</html>
+```
